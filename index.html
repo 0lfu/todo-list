@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
+    <title>TODO List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="wrapper">
+        <div id="main">
+            <div id="header">
+                <span class="mdi mdi-checkbox-marked-circle-auto-outline"></span><b>TODO List</b>
+            </div>
+            <div id="items">
+                <ul>
+                    <li draggable="true">Do my homework</li>
+                    <li draggable="true">Make a dinner</li>
+                    <li draggable="true">Go for a walk</li>
+                </ul>
+            </div>
+            <div id="input">
+                <input type="text" id="inputBox">
+                <div class="spacer"></div>
+                <div id="add">
+                    <span class="mdi mdi-plus addButton"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const inputBox = $("#inputBox");
+        const addButton = $(".addButton");
+        const itemList = $("ul");
+        
+        $("ul").sortable();
+
+        addButton.click(addItem);
+
+        inputBox.on("keypress", function (event) {
+            if (event.key === "Enter") {
+                addItem();
+            }
+        });
+
+        itemList.click(removeItem);
+
+        function addItem() {
+            const newItem = inputBox[0].value;
+            if (newItem !== "") {
+                const li = $("<li>").text(newItem);
+                itemList.append(li);
+                inputBox[0].value = "";
+            }
+        }
+
+        function removeItem(event) {
+            if (event.target.tagName === "LI") {
+                $(event.target).remove();
+            }
+        }
+    </script>
+    
+</body>
+</html>
